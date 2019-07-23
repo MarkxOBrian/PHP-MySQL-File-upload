@@ -58,6 +58,11 @@ if (isset($_GET['file_id'])) {
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
         header('Content-Length: ' . filesize('uploads/' . $file['name']));
+        
+        //This part of code prevents files from being corrupted after download
+        ob_clean();
+        flush();
+        
         readfile('uploads/' . $file['name']);
 
         // Now update downloads count
